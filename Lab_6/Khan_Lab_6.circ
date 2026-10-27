@@ -69,7 +69,7 @@
     <a name="downloadBoard" val="DE10LITE"/>
     <a name="simulationFrequency" val="8.0"/>
     <boardmap boardname="DE10LITE">
-      <mc key="/DIR" map="551,322"/>
+      <mc key="/Dir" map="377,322"/>
       <mc key="/L_7_Segment_Display_3" map="282,306"/>
       <mc key="/L_7_Segment_Display_4" map="318,306"/>
       <mc key="/RST" map="355,322"/>
@@ -220,7 +220,9 @@
     <comp loc="(1040,410)" name="Bin2Hex">
       <a name="label" val="Bin2Hex_1"/>
     </comp>
-    <comp loc="(770,460)" name="DownCounter_Template"/>
+    <comp loc="(770,460)" name="DownCounter_Template">
+      <a name="label" val="DownCounter_Template_1"/>
+    </comp>
     <wire from="(1000,150)" to="(1000,190)"/>
     <wire from="(1000,250)" to="(1000,270)"/>
     <wire from="(1000,270)" to="(1010,270)"/>
@@ -1097,6 +1099,7 @@
     </comp>
     <comp lib="0" loc="(1590,1550)" name="Pin">
       <a name="appearance" val="NewPins"/>
+      <a name="label" val="Output_bus_1"/>
       <a name="type" val="output"/>
       <a name="width" val="4"/>
     </comp>
