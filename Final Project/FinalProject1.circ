@@ -56,7 +56,20 @@
     <a name="appearance" val="logisim_evolution"/>
     <a name="circuit" val="main"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="downloadBoard" val="DE10LITE"/>
     <a name="simulationFrequency" val="2.0"/>
+    <boardmap boardname="DE10LITE">
+      <mc key="/AG" map="442,307"/>
+      <mc key="/AR" map="485,307"/>
+      <mc key="/AY" map="463,307"/>
+      <mc key="/BG" map="506,307"/>
+      <mc key="/BR" map="550,307"/>
+      <mc key="/BY" map="528,307"/>
+      <mc key="/D1" pmap="318_306_6,318_306_5,318_306_4,318_306_3,318_306_2,318_306_1,318_306_0"/>
+      <mc key="/D2" pmap="282_306_6,282_306_5,282_306_4,282_306_3,282_306_2,282_306_1,282_306_0"/>
+      <mc key="/PedestrianA" map="536,229"/>
+      <mc key="/PedestrianB" map="538,263"/>
+    </boardmap>
     <comp lib="0" loc="(100,140)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="AG"/>
@@ -110,22 +123,22 @@
       <a name="label" val="TENS"/>
       <a name="width" val="4"/>
     </comp>
-    <comp lib="0" loc="(200,140)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="BG"/>
-    </comp>
-    <comp lib="0" loc="(200,170)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="BY"/>
-    </comp>
-    <comp lib="0" loc="(200,200)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="BR"/>
-    </comp>
     <comp lib="0" loc="(200,330)" name="Tunnel">
       <a name="facing" val="north"/>
       <a name="label" val="ONES"/>
       <a name="width" val="4"/>
+    </comp>
+    <comp lib="0" loc="(220,140)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="BG"/>
+    </comp>
+    <comp lib="0" loc="(220,170)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="BY"/>
+    </comp>
+    <comp lib="0" loc="(220,200)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="BR"/>
     </comp>
     <comp lib="0" loc="(390,640)" name="Tunnel">
       <a name="facing" val="east"/>
@@ -201,32 +214,58 @@
     </comp>
     <comp lib="6" loc="(130,140)" name="LED">
       <a name="color" val="#00f097"/>
+      <a name="label" val="AG"/>
     </comp>
     <comp lib="6" loc="(130,170)" name="LED">
       <a name="color" val="#eaf000"/>
+      <a name="label" val="AY"/>
     </comp>
-    <comp lib="6" loc="(130,200)" name="LED"/>
+    <comp lib="6" loc="(130,200)" name="LED">
+      <a name="label" val="AR"/>
+    </comp>
     <comp lib="6" loc="(130,460)" name="Button">
       <a name="label" val="PedestrianA"/>
     </comp>
     <comp lib="6" loc="(130,490)" name="Button">
       <a name="label" val="PedestrianB"/>
     </comp>
-    <comp lib="6" loc="(150,310)" name="Hex Digit Display"/>
-    <comp lib="6" loc="(200,310)" name="Hex Digit Display"/>
-    <comp lib="6" loc="(220,140)" name="LED">
+    <comp lib="6" loc="(150,310)" name="Hex Digit Display">
+      <a name="decimalPoint" val="false"/>
+      <a name="label" val="D2"/>
+    </comp>
+    <comp lib="6" loc="(200,310)" name="Hex Digit Display">
+      <a name="decimalPoint" val="false"/>
+      <a name="label" val="D1"/>
+    </comp>
+    <comp lib="6" loc="(240,140)" name="LED">
       <a name="color" val="#00f097"/>
+      <a name="label" val="BG"/>
     </comp>
-    <comp lib="6" loc="(220,170)" name="LED">
+    <comp lib="6" loc="(240,170)" name="LED">
       <a name="color" val="#eaf000"/>
+      <a name="label" val="BY"/>
     </comp>
-    <comp lib="6" loc="(220,200)" name="LED"/>
-    <comp loc="(1300,450)" name="OutLogic"/>
-    <comp loc="(400,470)" name="Request"/>
-    <comp loc="(690,470)" name="NextState"/>
-    <comp loc="(690,620)" name="Timer"/>
-    <comp loc="(690,760)" name="DispLogic"/>
-    <comp loc="(970,450)" name="StateReg"/>
+    <comp lib="6" loc="(240,200)" name="LED">
+      <a name="label" val="BR"/>
+    </comp>
+    <comp loc="(1300,450)" name="OutLogic">
+      <a name="label" val="OL"/>
+    </comp>
+    <comp loc="(400,470)" name="Request">
+      <a name="label" val="Req"/>
+    </comp>
+    <comp loc="(690,470)" name="NextState">
+      <a name="label" val="NS"/>
+    </comp>
+    <comp loc="(690,620)" name="Timer">
+      <a name="label" val="T"/>
+    </comp>
+    <comp loc="(690,760)" name="DispLogic">
+      <a name="label" val="DL"/>
+    </comp>
+    <comp loc="(970,450)" name="StateReg">
+      <a name="label" val="SR"/>
+    </comp>
     <wire from="(100,140)" to="(130,140)"/>
     <wire from="(100,170)" to="(130,170)"/>
     <wire from="(100,200)" to="(130,200)"/>
@@ -265,10 +304,10 @@
     <wire from="(150,530)" to="(150,560)"/>
     <wire from="(150,530)" to="(180,530)"/>
     <wire from="(180,530)" to="(190,530)"/>
-    <wire from="(200,140)" to="(220,140)"/>
-    <wire from="(200,170)" to="(220,170)"/>
-    <wire from="(200,200)" to="(220,200)"/>
     <wire from="(200,310)" to="(200,330)"/>
+    <wire from="(220,140)" to="(240,140)"/>
+    <wire from="(220,170)" to="(240,170)"/>
+    <wire from="(220,200)" to="(240,200)"/>
     <wire from="(390,640)" to="(470,640)"/>
     <wire from="(400,470)" to="(420,470)"/>
     <wire from="(420,470)" to="(420,530)"/>
