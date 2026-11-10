@@ -24,25 +24,15 @@ Project constraints
 Encoding
 
 | State | Q2 Q1 Q0 |
-
-|---|---|
-
+| --- | --- |
 | S0 | 0 0 0 |
-
 | S1 | 0 0 1 |
-
 | S2 | 0 1 0 |
-
 | S3 | 0 1 1 |
-
 | WA | 1 0 0 |
-
 | WB | 1 0 1 |
-
 | X | 1 1 0 |
-
 | X | 1 1 1 |
-
 
 
 Light output table & equations
