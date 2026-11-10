@@ -23,30 +23,30 @@ Project constraints
 
 Encoding
 
-| State | Q2 Q1 Q0 |
-| :---: | :---: |
-| S0 | 0 0 0 |
-| S1 | 0 0 1 |
-| S2 | 0 1 0 |
-| S3 | 0 1 1 |
-| WA | 1 0 0 |
-| WB | 1 0 1 |
-| X | 1 1 0 |
-| X | 1 1 1 |
+| State | Q2 | Q1 | Q0 |
+| :---: | :---: | :---: | :---: |
+| S0 | 0 | 0 | 0 |
+| S1 | 0 | 0 | 1 |
+| S2 | 0 | 1 | 0 |
+| S3 | 0 | 1 | 1 |
+| WA | 1 | 0 | 0 |
+| WB | 1 | 0 | 1 |
+| X | 1 | 1 | 0 |
+| X | 1 | 1 | 1 |
 
 
 Light output table & equations
 
-| Q2 Q1 Q0 | State | RA YA GA RB YB GB |
-| :---: | :---: | :---: |
-| 0 0 0 | S0 | 0 0 1 1 0 0 |
-| 0 0 1 | S1 | 0 1 0 1 0 0 |
-| 0 1 0 | S2 | 1 0 0 0 0 1 |
-| 0 1 1 | S3 | 1 0 0 0 1 0 |
-| 1 0 0 | WA | 1 0 0 1 0 0 |
-| 1 0 1 | WB | 1 0 0 1 0 0 |
-| 1 1 0 | X | 1 0 0 1 0 0 |
-| 1 1 1 | X | 1 0 0 1 0 0 |
+| Q2 | Q1 | Q0 | State | RA | YA | GA | RB | YB | GB |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| 0 | 0 | 0 | S0 | 0 | 0 | 1 | 1 | 0 | 0 |
+| 0 | 0 | 1 | S1 | 0 | 1 | 0 | 1 | 0 | 0 |
+| 0 | 1 | 0 | S2 | 1 | 0 | 0 | 0 | 0 | 1 |
+| 0 | 1 | 1 | S3 | 1 | 0 | 0 | 0 | 1 | 0 |
+| 1 | 0 | 0 | WA | 1 | 0 | 0 | 1 | 0 | 0 |
+| 1 | 0 | 1 | WB | 1 | 0 | 0 | 1 | 0 | 0 |
+| 1 | 1 | 0 | X | 1 | 0 | 0 | 1 | 0 | 0 |
+| 1 | 1 | 1 | X | 1 | 0 | 0 | 1 | 0 | 0 |
 
 Initially I ignored the two rows (110, 111) as they did not represent any states. As rule 3 states, the two lights can never be green or yellow together. Setting each light to red for each row was safe.
 
@@ -60,24 +60,24 @@ GB = Q2'Q1Q0'
 
 Next-state table & equations
 
-| Q2 Q1 Q0 R | N2 N1 N0 |
-| :---: | :---: |
-| 0 0 0 0 | 0 0 1 |
-| 0 0 0 1 | 0 0 1 |
-| 0 0 1 0 | 0 1 0 |
-| 0 0 1 1 | 1 0 0 |
-| 0 1 0 0 | 0 1 1 |
-| 0 1 0 1 | 0 1 1 |
-| 0 1 1 0 | 0 0 0 |
-| 0 1 1 1 | 1 0 1 |
-| 1 0 0 0 | 0 1 0 |
-| 1 0 0 1 | 0 1 0 |
-| 1 0 1 0 | 0 0 0 |
-| 1 0 1 1 | 0 0 0 |
-| 1 1 0 0 | 0 0 0 |
-| 1 1 0 1 | 0 0 0 |
-| 1 1 1 0 | 0 0 0 |
-| 1 1 1 1 | 0 0 0 |
+| Q2 | Q1 | Q0 | R | N2 | N1 | N0 |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| 0 | 0 | 0 | 0 | 0 | 0 | 1 |
+| 0 | 0 | 0 | 1 | 0 | 0 | 1 |
+| 0 | 0 | 1 | 0 | 0 | 1 | 0 |
+| 0 | 0 | 1 | 1 | 1 | 0 | 0 |
+| 0 | 1 | 0 | 0 | 0 | 1 | 1 |
+| 0 | 1 | 0 | 1 | 0 | 1 | 1 |
+| 0 | 1 | 1 | 0 | 0 | 0 | 0 |
+| 0 | 1 | 1 | 1 | 1 | 0 | 1 |
+| 1 | 0 | 0 | 0 | 0 | 1 | 0 |
+| 1 | 0 | 0 | 1 | 0 | 1 | 0 |
+| 1 | 0 | 1 | 0 | 0 | 0 | 0 |
+| 1 | 0 | 1 | 1 | 0 | 0 | 0 |
+| 1 | 1 | 0 | 0 | 0 | 0 | 0 |
+| 1 | 1 | 0 | 1 | 0 | 0 | 0 |
+| 1 | 1 | 1 | 0 | 0 | 0 | 0 |
+| 1 | 1 | 1 | 1 | 0 | 0 | 0 |
 
 Rows (0, 1, 4, 5, 8, 9 , 10, 11, 12, 13, 14, 15) are unaffected by R, the request. This is important because it enforces rule 5, the walking states can only occur after the moving light's yellow cycle ends, and both lights remain red for 10 seconds. The values for N2, N1, N0 were determined based on how the 3 bit number represented by Q must continue. 
 
