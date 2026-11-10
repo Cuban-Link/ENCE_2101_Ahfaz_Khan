@@ -38,6 +38,7 @@ Encoding
 Light output table & equations
 
 | Q2 Q1 Q0 | State | RA YA GA RB YB GB |
+| --- | --- | --- |
 | 0 0 0 | S0 | 0 0 1 1 0 0 |
 | 0 0 1 | S1 | 0 1 0 1 0 0 |
 | 0 1 0 | S2 | 1 0 0 0 0 1 |
@@ -60,6 +61,7 @@ GB = Q2'Q1Q0'
 Next-state table & equations
 
 | Q2 Q1 Q0 R | N2 N1 N0 |
+| --- | --- |
 | 0 0 0 0 | 0 0 1 |
 | 0 0 0 1 | 0 0 1 |
 | 0 0 1 0 | 0 1 0 |
