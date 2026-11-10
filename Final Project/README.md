@@ -24,7 +24,7 @@ Project constraints
 Encoding
 
 | State | Q2 Q1 Q0 |
-| --- | --- |
+| :---: | :---: |
 | S0 | 0 0 0 |
 | S1 | 0 0 1 |
 | S2 | 0 1 0 |
@@ -38,7 +38,7 @@ Encoding
 Light output table & equations
 
 | Q2 Q1 Q0 | State | RA YA GA RB YB GB |
-| --- | --- | --- |
+| :---: | :---: | :---: |
 | 0 0 0 | S0 | 0 0 1 1 0 0 |
 | 0 0 1 | S1 | 0 1 0 1 0 0 |
 | 0 1 0 | S2 | 1 0 0 0 0 1 |
@@ -61,7 +61,7 @@ GB = Q2'Q1Q0'
 Next-state table & equations
 
 | Q2 Q1 Q0 R | N2 N1 N0 |
-| --- | --- |
+| :---: | :---: |
 | 0 0 0 0 | 0 0 1 |
 | 0 0 0 1 | 0 0 1 |
 | 0 0 1 0 | 0 1 0 |
@@ -110,7 +110,7 @@ Bit extension, tens and ones calculation
 
 STEP, Q, N relation in StateReg subcirc
 
-
+Looked up formatting for markdown files
 
 
 
