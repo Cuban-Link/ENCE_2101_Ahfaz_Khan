@@ -21,20 +21,20 @@ Pin Mapping:
 | BG | LEDR2 |
 | BY | LEDR1 |
 | BR | LEDR0 |
-| Oa | HEX0, a |
-| Ob | HEX0, b |
-| Oc | HEX0, c |
-| Od | HEX0, d |
-| Oe | HEX0, e |
-| ONEf | HEX0, f |
-| Og | HEX0, g |
-| Ta | HEX1, a |
-| Tb | HEX1, b |
-| Tc | HEX1, c |
-| Td | HEX1, d |
-| Te | HEX1, e |
-| Tf | HEX1, f | 
-| Tg | HEX1, g |
+| H0a | HEX0, a |
+| H0b | HEX0, b |
+| H0c | HEX0, c |
+| H0d | HEX0, d |
+| H0e | HEX0, e |
+| H0f | HEX0, f |
+| H0g | HEX0, g |
+| H1a | HEX1, a |
+| H1b | HEX1, b |
+| H1c | HEX1, c |
+| H1d | HEX1, d |
+| H1e | HEX1, e |
+| H1f | HEX1, f | 
+| H1g | HEX1, g |
 | LED6 | LEDR6 |
 | LED7 | LEDR7 |
 | LED8 | LEDR8 |
@@ -72,7 +72,7 @@ As rule 8 requires, each walk cycle is followed by the light that was initially 
 
 With a Moore Machine, output depend on the current state. With two walk cycles, each can be made to follow a button press and to be followed by the next light's cycle. 
 
-Each Q represents a state. State diagrams can be seen in [file name]
+State table for Q2, Q1, Q0:
 
 | State | Q2 | Q1 | Q0 |
 | :---: | :---: | :---: | :---: |
@@ -135,7 +135,7 @@ Next-state table & equations
 | 1 | 1 | 1 | 0 | 0 | 0 | 0 |
 | 1 | 1 | 1 | 1 | 0 | 0 | 0 |
 
-Rows (0, 1, 4, 5, 8, 9 , 10, 11, 12, 13, 14, 15) are unaffected by R, the request. This is important because it enforces rule 5, the walking states can only occur after the moving light's yellow cycle ends, and both lights remain red for 10 seconds. The values for N2, N1, N0 were determined based on how the 3 bit number represented by Q must continue. For the values of Q that are not associated with a state, the next state is set to 0 0 0 to begin from S0.
+Rows (0, 1, 4, 5, 8, 9 , 10, 11, 12, 13, 14, 15) are unaffected by R, the request. This is important because it enforces rule 5, the walking states can only occur after the moving light's yellow cycle ends. The values for N2, N1, N0 were determined based on how each Q must continue to change states. For the values of Q that are not associated with a state, the next state is set to 0 0 0 to begin from S0.
 
 N2 = Q2'Q0R
 
@@ -150,7 +150,7 @@ Since the walk button's state must be retained even before it reaches a clock ed
 
 Timer & Display logic
 
-At first I considered a down counter as the foundation of the countdown. The issue this presented was that the display needs to start at 3, and I would need additional logic for loading the numbers 3 and 10 based on Q, and stopping the count at 0 instead of it restarting to 15 as is a mistake I have previously encountered with using down counters for a seven-segment display. Out of laziness, I used an up counter with a subtractor. Multiplexers and comparators in my timer and display logic subcircuits made it easy to produce outputs unique to the state and whether a walk request was made. The tens digit is only 1 if the subtractor output is equal to (A)_16 or 10, and the bit extension gave the hex display a 4 bit input. At first I did not change the bit extension from sign extend and was confused about the output, but since 1 is the only number displayed on the tens digit I selected zero extend and it worked. Similarly the ones digit is only 0 when the tens digit is 1.
+At first I considered a down counter as the foundation of the countdown. The issue this presented was that the display needs to start at 3, and I would need additional logic for loading the numbers 3 and 10 based on Q, and stopping the count at 0 instead of it restarting to 15 as is a mistake I have previously encountered with using down counters for a seven-segment display. Out of laziness, I used an up counter with a subtractor. Multiplexers and comparators in my timer and display logic subcircuits made it easy to produce outputs unique to the state and whether a walk cycle is active. The tens digit is only 1 if the subtractor output is equal to (A)_16 or 10, and the bit extension gave the hex display a 4 bit input. At first I did not change the bit extension from sign extend and an F was displayed, but since 1 is the only number displayed on the tens digit I selected zero extend and it showed 1. Similarly the ones digit is only 0 when the tens digit is 1.
 
 The timer subcircuit also outputs 1 bit labelled CUE, acting as a pulse timed to each state instead of a fixed frequency. I realized this would be helpful when making the state register and had an issue with the state updating.
 
