@@ -65,6 +65,8 @@ Project constraints
 
 Encoding
 
+Each Q represents a state. State diagrams can be seen in [file name]
+
 | State | Q2 | Q1 | Q0 |
 | :---: | :---: | :---: | :---: |
 | S0 | 0 | 0 | 0 |
@@ -142,19 +144,45 @@ Testing
 
 Adjustments
 
-Output and next-state logic was easiest with equations
+My light output and next-state subcircuits worked on the first try as I derived the circuit from my equations. Using a NOR for Light A's green light was intentional and preferred, however when finding equations from the state table I wrote the NOR expression first and didn't need to reduce. XOR was one I had to look up Boolean rules to recall. 
 
-7seg common anode decoder req, distorted board display.
-
-Active on low KEY_0, KEY_1 requires NOT gates. Alters simulation.
-
-Bit extension, tens and ones calculation
+StateReg:
 
 STEP, Q, N relation in StateReg subcirc
 
-Looked up formatting for markdown files
+
+MUX for each D
+
+Swapped MUX inputs
+
+Q tunnels for MUX
+
+Needed both Q outputs and tunnels
+
+Bit width
+
+Comparators
+
+Request
+
+Display Logic
+
+10 instead of a
+
+MUX B input 0 not 1
+
+Need for a bit extender
+
+Zero extend
+
+Numbers lasted 2s at 1Hz clock frequency
+
+Frequency set to 2Hz
 
 
+Board
+
+After the Logisim simulation worked and met all the rules, I hastily uploaded to the DE10-Lite board and did not recognize the pattern of the LEDs or the active segments of the displays. I noticed the LEDs were on red for both traffic lights for 10 seconds, and when both KEY buttons were held the pattern worked as expected. This also explained the display as I forgot to account for the common anode segment display the board uses. To fix this I put a NOT gate in front of each pedestrian walk button, and I used the combinational analysis tool to assign values to the display segments and create a seven segment decoder. I decided to keep the tunnels from my display logic subcircuit to keep the digital simulation working, and assigned each segment for each display as an output to individually map to the board.
 
 
 Final board mapping
