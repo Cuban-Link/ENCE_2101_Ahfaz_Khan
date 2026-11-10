@@ -1,5 +1,47 @@
 Khan 2101 Final Project
 -----------------------------------------------------------------------------------------
+
+Logisim Evolution 4.1 Simulation
+---
+**Traffic intersection circuit**
+
+Set clock frequency at 2Hz
+
+Pin Mapping:
+
+| Logisim I/O | DE10-Lite |
+| :---: | :---: |
+| PedestrianA | KEY_0 |
+| PedestrianB | KEY_1 |
+| AG | LEDR5 |
+| AY | LEDR4 |
+| AR | LEDR3 |
+| BG | LEDR2 |
+| BY | LEDR1 |
+| BR | LEDR0 |
+| Oa | HEX0, a |
+| Ob | HEX0, b |
+| Oc | HEX0, c |
+| Od | HEX0, d |
+| Oe | HEX0, e |
+| ONEf | HEX0, f |
+| Og | HEX0, g |
+| Ta | HEX1, a |
+| Tb | HEX1, b |
+| Tc | HEX1, c |
+| Td | HEX1, d |
+| Te | HEX1, e |
+| Tf | HEX1, f | 
+| Tg | HEX1, g |
+| LED6 | LEDR6 |
+| LED7 | LEDR7 |
+| LED8 | LEDR8 |
+| LED9 | LEDR9 |
+
+As a purely visual choice, LEDR components 6-9 were wired to a constant 0 in Logisim to eliminate any light from unmapped pins.
+
+---
+
 Project constraints
 ------------------------------------------------------------------------------------------
 
@@ -39,7 +81,7 @@ Light output table & equations
 
 | Q2 | Q1 | Q0 | State | RA | YA | GA | RB | YB | GB |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| 0 | 0 | 0 | S0 | 0 | 0 | 1 | 1 | 0 | 0 |
+| 0 | 0 | 0 | S0 | **0** | **0** | **1** | **1** | **0** | **0** |
 | 0 | 0 | 1 | S1 | 0 | 1 | 0 | 1 | 0 | 0 |
 | 0 | 1 | 0 | S2 | 1 | 0 | 0 | 0 | 0 | 1 |
 | 0 | 1 | 1 | S3 | 1 | 0 | 0 | 0 | 1 | 0 |
