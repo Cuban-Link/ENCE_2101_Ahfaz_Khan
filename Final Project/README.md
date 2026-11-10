@@ -7,6 +7,8 @@ Logisim Evolution 4.1 Simulation
 
 Set clock frequency at 2Hz
 
+The DE10-Lite requires each pedestrian walk button to be passive on press, however this setting must be changed for each button in order to see the correct simulation on Logisim. 
+
 Pin Mapping:
 
 | Logisim I/O | DE10-Lite |
@@ -63,7 +65,12 @@ Project constraints
 
 ---------------------------------------------------------------------------------------------
 
-Encoding
+The assignment describes five phases: Road A moving, Road A stopping, Road B moving, Road B stopping, Walk after press. 
+
+As rule 8 requires, each walk cycle is followed by the light that was initially red, and neither light repeats a green-red cycle after a walk cycle. To make this work, I split the walking phase into two states, WA, WB. The assignment also names the light state RA, YA, GA, and I found this harder to read than AR, AY, AG.
+
+
+With a Moore Machine, output depend on the current state. With two walk cycles, each can be made to follow a button press and to be followed by the next light's cycle. 
 
 Each Q represents a state. State diagrams can be seen in [file name]
 
@@ -83,7 +90,7 @@ Light output table & equations
 
 | Q2 | Q1 | Q0 | State | RA | YA | GA | RB | YB | GB |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| 0 | 0 | 0 | S0 | **0** | **0** | **1** | **1** | **0** | **0** |
+| 0 | 0 | 0 | S0 | 0 | 0 | 1 | 1 | 0 | 0 |
 | 0 | 0 | 1 | S1 | 0 | 1 | 0 | 1 | 0 | 0 |
 | 0 | 1 | 0 | S2 | 1 | 0 | 0 | 0 | 0 | 1 |
 | 0 | 1 | 1 | S3 | 1 | 0 | 0 | 0 | 1 | 0 |
@@ -95,10 +102,15 @@ Light output table & equations
 Initially I ignored the two rows (110, 111) as they did not represent any states. As rule 3 states, the two lights can never be green or yellow together. Setting each light to red for each row was safe.
 
 RA = Q2 + Q1
+
 YA = Q2'Q1'Q0
+
 GA = Q2'Q1'Q0' = (Q2 + Q1 + Q0)' (Demorgan's, replaced with NOR)
+
 RB = Q1' + Q2
+
 YB = Q2'Q1Q0
+
 GB = Q2'Q1Q0'
 
 
@@ -123,61 +135,36 @@ Next-state table & equations
 | 1 | 1 | 1 | 0 | 0 | 0 | 0 |
 | 1 | 1 | 1 | 1 | 0 | 0 | 0 |
 
-Rows (0, 1, 4, 5, 8, 9 , 10, 11, 12, 13, 14, 15) are unaffected by R, the request. This is important because it enforces rule 5, the walking states can only occur after the moving light's yellow cycle ends, and both lights remain red for 10 seconds. The values for N2, N1, N0 were determined based on how the 3 bit number represented by Q must continue. 
+Rows (0, 1, 4, 5, 8, 9 , 10, 11, 12, 13, 14, 15) are unaffected by R, the request. This is important because it enforces rule 5, the walking states can only occur after the moving light's yellow cycle ends, and both lights remain red for 10 seconds. The values for N2, N1, N0 were determined based on how the 3 bit number represented by Q must continue. For the values of Q that are not associated with a state, the next state is set to 0 0 0 to begin from S0.
 
 N2 = Q2'Q0R
+
 N1 = Q0'(Q2'Q1 + Q2Q1') + Q2'Q1'Q0R'
+
 N0 = Q2'Q0' + Q2'Q1Q0R = Q2'Q0' + Q2'Q1R
-
-
-Timer
-
-
-Display conversion
-
-
-Request latch
-
-
-Testing
-
-
-Adjustments
-
-My light output and next-state subcircuits worked on the first try as I derived the circuit from my equations. Using a NOR for Light A's green light was intentional and preferred, however when finding equations from the state table I wrote the NOR expression first and didn't need to reduce. XOR was one I had to look up Boolean rules to recall. 
-
-StateReg:
-
-STEP, Q, N relation in StateReg subcirc
-
-
-MUX for each D
-
-Swapped MUX inputs
-
-Q tunnels for MUX
-
-Needed both Q outputs and tunnels
-
-Bit width
-
-Comparators
 
 Request
 
-Display Logic
+Since the walk button's state must be retained even before it reaches a clock edge, I connected both walk buttons to an OR gate to keep it to one circuit, using an AND gate as a makeshift enable pin to output 1 when a button is pressed, and when Q2 is active, the flip-flop's Set pin receives 0 and the Reset pin receives 1. I did not realise I should have routed D to Q on this flip-flop, and I tried to diagnose the issue with a AI prompt and realized there that I needed to account for Q copying D.
 
-10 instead of a
 
-MUX B input 0 not 1
+Timer & Display logic
 
-Need for a bit extender
+At first I considered a down counter as the foundation of the countdown. The issue this presented was that the display needs to start at 3, and I would need additional logic for loading the numbers 3 and 10 based on Q, and stopping the count at 0 instead of it restarting to 15 as is a mistake I have previously encountered with using down counters for a seven-segment display. Out of laziness, I used an up counter with a subtractor. Multiplexers and comparators in my timer and display logic subcircuits made it easy to produce outputs unique to the state and whether a walk request was made. The tens digit is only 1 if the subtractor output is equal to (A)_16 or 10, and the bit extension gave the hex display a 4 bit input. At first I did not change the bit extension from sign extend and was confused about the output, but since 1 is the only number displayed on the tens digit I selected zero extend and it worked. Similarly the ones digit is only 0 when the tens digit is 1.
 
-Zero extend
+The timer subcircuit also outputs 1 bit labelled CUE, acting as a pulse timed to each state instead of a fixed frequency. I realized this would be helpful when making the state register and had an issue with the state updating.
 
-Numbers lasted 2s at 1Hz clock frequency
 
-Frequency set to 2Hz
+State register
+
+For the state register I used 3 flip-flops and 3 multiplexers. 3 flip-flops to represent each bit of Q corresponding to a state.
+
+The flip flops represent the current state and output bits for Q. The problem I encountered was that I wired the next-state values to the D pins of each flip-flop, and the timing didn't work and the state changed with each tick of the clock signal. With the multiplexers, the CUE signal from the timer's output dictates whether the flip-flops maintain their value from the previous tick or if they are updated with the next-state values.
+
+
+Unmentioned adjustments
+
+My light output and next-state subcircuits worked on the first try as I derived the circuit from my equations. Using a NOR for Light A's green light was intentional and preferred, however when finding equations from the state table I wrote the NOR expression first and didn't need to reduce. XOR was a reduction I had to look up Boolean rules to recall. 
 
 
 Board
@@ -187,6 +174,6 @@ After the Logisim simulation worked and met all the rules, I hastily uploaded to
 
 Final board mapping
 
-I let the Hex digit display on Logisim unmapped, as I wanted the circuit simulation to retain its accuracy. Instead, I used tunnels before splitters to connect the display logic outputs to the Logisim Hex display, and used the splitter fans as inputs for the segment decoder, with outputs representing each segment to map individually to the DE10-Lite. 
+After fixing the board display, I wanted my Logisim file to show the correct simulation. I let the Hex digit display on Logisim unmapped. Instead, I used tunnels before splitters to connect the display logic outputs to the Logisim hex display, and used the splitter fans as inputs for the segment decoder, with outputs representing each segment to map individually to the DE10-Lite. 
 
 
