@@ -174,6 +174,6 @@ After the Logisim simulation worked and met all the rules, I hastily uploaded to
 
 Final board mapping
 
-After fixing the board display, I wanted my Logisim file to show the correct simulation. I let the Hex digit display on Logisim unmapped. Instead, I used tunnels before splitters to connect the display logic outputs to the Logisim hex display, and used the splitter fans as inputs for the segment decoder, with outputs representing each segment to map individually to the DE10-Lite. 
+After fixing the board display, I wanted my Logisim file to show the correct simulation. I let the Hex digit display on Logisim unmapped. Instead, I used tunnels before splitters to connect the display logic outputs to the Logisim hex display, and used the splitter fans as inputs for the segment decoder, with outputs representing each segment to map individually to the DE10-Lite. I also removed the NOT gates and realized I could just set each button to passive on high.
 
 
